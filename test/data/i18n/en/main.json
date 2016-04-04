@@ -1,3 +1,4 @@
 {
+    // json supports comments here
     "test": "This is a test!"
 }

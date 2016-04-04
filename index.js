@@ -5,6 +5,7 @@
 var path = require("path");
 var fs = require("fs");
 var _ = require("lodash");
+var jsonminify = require("jsonminify");
 
 var loaderUtils = require('loader-utils');
 
@@ -83,7 +84,7 @@ module.exports = function (indexContent) {
 			extname = path.extname(pathstring);
 			basename = path.basename(pathstring, extname);
 			content = fs.readFileSync(pathstring);
-			fileData = JSON.parse(content);
+			fileData = JSON.parse(JSON.minify(content.toString('utf-8')));
 			if (inOverrideMode) {
 				overrideFileExists = true;
 				//here we apply the data from the override dir if existent
@@ -95,7 +96,7 @@ module.exports = function (indexContent) {
 				}
 				if (overrideFileExists) {
 					overrideContent = fs.readFileSync(overridePathstring);
-					overrideData = JSON.parse(overrideContent);
+					overrideData = JSON.parse(JSON.minify(overrideContent.toString('utf-8')));
 					fileData = _.merge(fileData, overrideData);
 					this.addDependency(overridePathstring);
 				}

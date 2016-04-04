@@ -1,4 +1,5 @@
 {
+	// json supports comments here
 	"test": "This is a test!",
 	"sub": {
 		"slug": "i am a sub",
